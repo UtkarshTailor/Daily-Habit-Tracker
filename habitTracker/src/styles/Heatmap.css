@@ -1,0 +1,21 @@
+.heatmap {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--size), 1fr));
+  gap: 6px;
+  align-items: center;
+}
+.heat-square {
+  width: var(--size);
+  height: var(--size);
+  border-radius: 3px;
+  border: 1px solid #e9eef2;
+  box-sizing: border-box;
+}
+.heat-square.done {
+  background: #10b981; /* green */
+  border-color: rgba(16,185,129,0.15);
+  box-shadow: 0 0 0 3px rgba(16,185,129,0.06) inset;
+}
+.heat-square.not {
+  background: #f3f4f6; /* light gray */
+}

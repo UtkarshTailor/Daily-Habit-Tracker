@@ -1,0 +1,26 @@
+.add-form {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+}
+.input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e6e9ee;
+  background: #fafafa;
+  font-size: 0.95rem;
+}
+.add-btn {
+  background: #0ea5a4;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.add-btn:hover { filter: brightness(0.98); }
+.controls { display: flex; gap: 8px; }
