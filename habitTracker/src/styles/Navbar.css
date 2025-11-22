@@ -4,8 +4,9 @@
   border-bottom: 1px solid #e6e9ee;
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: 100;
 }
+
 .nav-inner {
   max-width: 1100px;
   margin: 0 auto;
@@ -14,35 +15,21 @@
   align-items: center;
   justify-content: space-between;
 }
+
 .brand {
   font-weight: 700;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   color: #0f1724;
 }
-.nav-actions .cta {
-  background: #10b981;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-}
-.nav-actions .cta:hover { filter: brightness(0.95); }
 
-.login-btn {
-  background: #2563eb;
-  color: white;
-  padding: 8px 14px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-}
-.login-btn:hover {
-  filter: brightness(0.95);
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.login-btn, .logout-btn {
+.login-btn,
+.logout-btn {
   background: #2563eb;
   color: white;
   padding: 8px 14px;
@@ -57,17 +44,19 @@
   background: #ef4444;
 }
 
-.login-btn, .logout-btn {
-  background: #2563eb;
-  color: white;
-  padding: 8px 14px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-}
+/* MOBILE FIX */
+@media (max-width: 500px) {
+  .nav-inner {
+    padding: 10px 16px;
+  }
 
-.logout-btn {
-  background: #ef4444;
+  .brand {
+    font-size: 1.1rem;
+  }
+
+  .login-btn,
+  .logout-btn {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
 }

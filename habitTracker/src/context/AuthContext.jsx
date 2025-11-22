@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
 
@@ -8,12 +8,13 @@ export function AuthProvider({ children }) {
     return saved ? JSON.parse(saved) : null;
   });
 
+  // demo credentials
   const DEMO_EMAIL = "demo@demo.com";
   const DEMO_PASSWORD = "123456";
 
   const login = (email, password) => {
     if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
-      const userData = { email, name: "Demo User" };
+      const userData = { email };
       setUser(userData);
       localStorage.setItem("demo_user", JSON.stringify(userData));
       return { success: true };

@@ -3,8 +3,8 @@
   gap: 12px;
   align-items: center;
   width: 100%;
-  max-width: 800px;
 }
+
 .input {
   flex: 1;
   padding: 10px 12px;
@@ -13,6 +13,7 @@
   background: #fafafa;
   font-size: 0.95rem;
 }
+
 .add-btn {
   background: #0ea5a4;
   color: white;
@@ -22,5 +23,25 @@
   cursor: pointer;
   font-weight: 600;
 }
-.add-btn:hover { filter: brightness(0.98); }
-.controls { display: flex; gap: 8px; }
+
+.controls {
+  display: flex;
+  gap: 8px;
+}
+
+/* MOBILE */
+@media (max-width: 500px) {
+  .add-form {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .controls {
+    width: 100%;
+  }
+
+  .add-btn {
+    width: 100%;
+  }
+}
