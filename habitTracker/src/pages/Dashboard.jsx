@@ -4,13 +4,9 @@ import AddHabitForm from "../components/AddHabitForm";
 import HabitCard from "../components/HabitCard";
 import Heatmap from "../components/Heatmap";
 import "../styles/DashboardLayout.css";
+import { useAuth } from "../context/AuthContext";
 
 const STORAGE_KEY = "habits_v1";
-
-// generate unique id
-function uid() {
-  return Math.random().toString(36).slice(2, 9);
-}
 
 // ISO YYYY-MM-DD
 const iso = (d) => d.toISOString().slice(0, 10);
@@ -44,72 +40,104 @@ function AggregateHeatmap({ habits = [], days = 30 }) {
    MAIN DASHBOARD COMPONENT
 --------------------------------------------------------*/
 export default function Dashboard() {
-  /* ----------------------------------------------
-     Load initial habits from localStorage correctly
-  ---------------------------------------------- */
-  const [habits, setHabits] = useState(() => {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  });
+  const { token } = useAuth();
+
+  const [habits, setHabits] = useState([]);
 
   const [sortBy, setSortBy] = useState("name");
   const [viewDays, setViewDays] = useState(30);
 
   /* ----------------------------------------------
-     Sync habits TO localStorage
+     Sync habits from API
   ---------------------------------------------- */
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(habits));
-  }, [habits]);
+    void (async () => {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/habits`,
+        {
+          method: "GET",
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        }
+      );
+      const data = await res.json();
+      setHabits(data);
+      console.log(data);
+    })();
+  }, [token]);
 
   /* ----------------------------------------------
      CRUD operations
   ---------------------------------------------- */
 
-  const addHabit = (name) => {
+  const addHabit = async (name) => {
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/habits`,
+      {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ name })
+      }
+    );
+    const data = await res.json();
     const newHabit = {
-      id: uid(),
+      _id: data._id,
       name,
       history: {},
-      createdAt: new Date().toISOString(),
+      createdAt: new Date(data.createdAt).toISOString(),
     };
     setHabits((prev) => [newHabit, ...prev]);
   };
 
-  const deleteHabit = (id) => {
+  const deleteHabit = async (id) => {
     if (!confirm("Delete this habit permanently?")) return;
-    setHabits((prev) => prev.filter((h) => h.id !== id));
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/habits/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+    if (res.ok)
+      setHabits((prev) => prev.filter((h) => h._id !== id));
   };
 
-  const toggleToday = (id) => {
+  const toggleToday = async (id) => {
     const today = todayKey();
 
-    setHabits((prev) =>
-      prev.map((h) => {
-        if (h.id !== id) return h;
-
-        const copy = { ...h, history: { ...h.history } };
-
-        if (copy.history[today]) delete copy.history[today];
-        else copy.history[today] = true;
-
-        return copy;
-      })
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/habits/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ action: 'toggle_day', date: today })
+      }
     );
-  };
-
-  const toggleDay = (id, dateKey) => {
-    setHabits((prev) =>
-      prev.map((h) => {
-        if (h.id !== id) return h;
-
-        const copy = { ...h, history: { ...h.history } };
-        if (copy.history[dateKey]) delete copy.history[dateKey];
-        else copy.history[dateKey] = true;
-
-        return copy;
-      })
-    );
+    if (res.ok) {
+      setHabits((prev) =>
+        prev.map((h) => {
+          if (h._id !== id) return h;
+  
+          const copy = { ...h, history: { ...h.history } };
+  
+          if (copy.history[today]) delete copy.history[today];
+          else copy.history[today] = true;
+  
+          return copy;
+        })
+      );
+    }
   };
 
   /* ----------------------------------------------
@@ -208,7 +236,6 @@ export default function Dashboard() {
                     key={habit.id}
                     habit={habit}
                     onToggleToday={toggleToday}
-                    onToggleDay={toggleDay}
                     onDelete={deleteHabit}
                   />
                 ))

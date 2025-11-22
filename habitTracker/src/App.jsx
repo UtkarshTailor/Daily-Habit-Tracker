@@ -4,10 +4,11 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Register from "./pages/Register";
 
 function PrivateRoute({ children }) {
-  const { user } = useAuth();
-  return user ? children : <Navigate to="/login" />;
+  const { token } = useAuth();
+  return token ? children : <Navigate to="/login" />;
 }
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
 
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
           <Route
             path="/dashboard"

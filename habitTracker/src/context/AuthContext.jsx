@@ -1,39 +1,65 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext();
 
+const API_TOKEN_STORAGE_KEY = "api_token";
+
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(() => {
-    const saved = localStorage.getItem("demo_user");
-    return saved ? JSON.parse(saved) : null;
-  });
+  const [token, setToken] = useState(localStorage.getItem(API_TOKEN_STORAGE_KEY));
 
-  // demo credentials
-  const DEMO_EMAIL = "demo@demo.com";
-  const DEMO_PASSWORD = "123456";
+  const register = async (name, email, password) => {
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/auth/register`,
+      {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, email, password })
+      }
+    );
+    if (res.ok) {
+      const data = await res.json()
+      setToken(data.token);
+      localStorage.setItem(API_TOKEN_STORAGE_KEY, data.token);
+      return { success: true };
+    }
+    return { success: false, message: "Error occurred" };
+  };
 
-  const login = (email, password) => {
-    if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
-      const userData = { email };
-      setUser(userData);
-      localStorage.setItem("demo_user", JSON.stringify(userData));
+  const login = async (email, password) => {
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/auth/login`,
+      {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      }
+    );
+    if (res.ok) {
+      const data = await res.json()
+      setToken(data.token);
+      localStorage.setItem(API_TOKEN_STORAGE_KEY, data.token);
       return { success: true };
     }
     return { success: false, message: "Invalid credentials" };
   };
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem("demo_user");
+  const logout = async () => {
+    setToken(null);
+    localStorage.removeItem(API_TOKEN_STORAGE_KEY);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ token, register, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   return useContext(AuthContext);
 }

@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import "../styles/Navbar.css";
 
 export default function Navbar() {
-  const { user, logout } = useAuth();
+  const { token, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -21,7 +21,7 @@ export default function Navbar() {
         </div>
 
         <div className="nav-actions">
-          {user ? (
+          {token ? (
             <button className="cta logout-btn" onClick={handleLogout}>
               Logout
             </button>

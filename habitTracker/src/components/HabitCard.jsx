@@ -43,8 +43,8 @@ function analyzeHistory(history = {}, windowDays = 30) {
   return { progress, current, longest, windowDates: dates };
 }
 
-export default function HabitCard({ habit, onToggleToday, onDelete, onToggleDay }) {
-  const { id, name, history = {} } = habit;
+export default function HabitCard({ habit, onToggleToday, onDelete }) {
+  const { _id, name, history = {} } = habit;
 
   const { progress, current, longest, windowDates } = useMemo(
     () => analyzeHistory(history, 30),
@@ -68,11 +68,11 @@ export default function HabitCard({ habit, onToggleToday, onDelete, onToggleDay 
         <div className="habit-actions">
           <button
             className={`mark-btn ${todayDone ? "done" : ""}`}
-            onClick={() => onToggleToday(id)}
+            onClick={() => onToggleToday(_id)}
           >
             {todayDone ? "Marked" : "Mark Today"}
           </button>
-          <button className="delete-btn" onClick={() => onDelete(id)}>Delete</button>
+          <button className="delete-btn" onClick={() => onDelete(_id)}>Delete</button>
         </div>
       </div>
 
@@ -83,9 +83,8 @@ export default function HabitCard({ habit, onToggleToday, onDelete, onToggleDay 
             {windowDates.slice(-7).map((d) => (
               <button
                 key={d}
-                className={`mini-cell ${history[d] ? "done" : "not"}`}
-                onClick={() => onToggleDay(id, d)}
                 title={d}
+                className={`mini-cell ${history[d] ? "done" : "not"}`}
                 aria-label={`toggle ${d}`}
               />
             ))}

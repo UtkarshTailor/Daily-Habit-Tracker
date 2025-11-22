@@ -4,22 +4,18 @@
   --soft-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
-/* FULL-PAGE CENTERING */
-body, html {
-  height: 100%;
-}
-
-.login-page {
+/* FULL PAGE */
+.register-page {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background: var(--bg);
+  background: #f4f7fb;
 }
 
-/* MAIN LOGIN CARD */
-.login-container {
+/* CARD */
+.register-container {
   width: 100%;
   max-width: 420px;
   padding: 32px;
@@ -32,9 +28,9 @@ body, html {
 }
 
 /* TITLE */
-.login-container h2 {
+.register-container h2 {
   margin-top: 0;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   font-size: 1.6rem;
   background: var(--gradient);
   -webkit-background-clip: text;
@@ -42,14 +38,14 @@ body, html {
 }
 
 /* FORM */
-.login-form {
+.register-form {
   display: flex;
   flex-direction: column;
   gap: 16px;
   margin-top: 20px;
 }
 
-.login-form input {
+.register-form input {
   padding: 12px;
   border: 1px solid #d1d5db;
   border-radius: var(--radius);
@@ -58,14 +54,14 @@ body, html {
   transition: 0.25s ease;
 }
 
-.login-form input:focus {
+.register-form input:focus {
   border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
   background: #fff;
 }
 
 /* BUTTON */
-.login-submit-btn {
+.register-submit-btn {
   background: var(--gradient);
   color: white;
   padding: 12px;
@@ -78,23 +74,33 @@ body, html {
   transition: 0.25s ease;
 }
 
-.login-submit-btn:hover {
+.register-submit-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.1);
 }
 
-/* ERROR */
+/* ERROR MESSAGE */
 .error {
   color: #ef4444;
   font-size: 0.9rem;
   margin-top: -6px;
 }
 
-/* DEMO INFO */
-.demo-info {
-  margin-top: 24px;
+/* LINK BELOW */
+.register-info {
+  margin-top: 20px;
   font-size: 0.9rem;
   color: #475569;
+}
+
+.register-info a {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.register-info a:hover {
+  text-decoration: underline;
 }
 
 /* ANIMATION */
@@ -105,15 +111,11 @@ body, html {
 
 /* MOBILE */
 @media (max-width: 500px) {
-  .login-container {
-    padding: 24px 20px;
-  }
-
-  .login-container h2 {
-    font-size: 1.4rem;
+  .register-container {
+    padding: 24px;
   }
 }
-.login-links {
+.register-links {
   margin-top: 18px;
   text-align: center;
 }

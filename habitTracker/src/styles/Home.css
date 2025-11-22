@@ -1,29 +1,138 @@
-.home-container {
-  max-width: 600px;
-  margin: 80px auto;
+:root {
+  --gradient: linear-gradient(135deg, #4f46e5, #3b82f6);
+  --radius: 16px;
+  --soft-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* FULL PAGE */
+.home-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
+  background: var(--bg);
+}
+
+/* CENTERED CONTENT */
+.home-content {
+  max-width: 650px;
   text-align: center;
+  padding: 40px 30px;
+  background: white;
+  border-radius: var(--radius);
+  border: 1px solid #e6e9ee;
+  box-shadow: var(--soft-shadow);
+  animation: fadeIn 0.6s ease;
 }
 
-.subtext {
-  color: #64748b;
-  margin-bottom: 20px;
+/* HEADER */
+.home-title {
+  font-size: 2.3rem;
+  margin: 0;
+  font-weight: 800;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.home-login-btn {
-  background: #2563eb;
+/* SUBTEXT */
+.home-subtext {
+  color: #475569;
+  margin: 14px 0 28px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* BUTTON */
+.home-btn {
+  background: var(--gradient);
   color: white;
-  padding: 12px 20px;
-  border-radius: 10px;
+  padding: 14px 24px;
+  border-radius: var(--radius);
   text-decoration: none;
   font-weight: 600;
+  font-size: 1.05rem;
   display: inline-block;
-  margin-top: 20px;
+  box-shadow: var(--soft-shadow);
+  transition: 0.25s ease;
 }
 
+.home-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+}
+
+/* FADE ANIMATION */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* MOBILE */
 @media (max-width: 600px) {
-  .home-container {
-    margin-top: 40px;
-    padding: 16px;
+  .home-content {
+    padding: 28px 18px;
+  }
+
+  .home-title {
+    font-size: 1.9rem;
+  }
+
+  .home-subtext {
+    font-size: 1rem;
+  }
+}
+/* Button group layout */
+.home-btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+/* Main button stays same */
+.home-btn {
+  background: var(--gradient);
+  color: white;
+  padding: 14px 24px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.05rem;
+  display: inline-block;
+  box-shadow: var(--soft-shadow);
+  transition: 0.25s ease;
+}
+
+/* Hover effect */
+.home-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--soft-shadow-hover);
+}
+
+/* Secondary button (Register) */
+.secondary-btn {
+  background: white;
+  color: #3b82f6;
+  border: 2px solid #3b82f6;
+}
+
+.secondary-btn:hover {
+  background: #ebf2ff;
+  transform: translateY(-3px);
+}
+
+/* Mobile layout */
+@media (max-width: 500px) {
+  .home-btn-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .home-btn,
+  .secondary-btn {
+    width: 100%;
+    text-align: center;
   }
 }
