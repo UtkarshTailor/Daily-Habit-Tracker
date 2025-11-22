@@ -1,8 +1,7 @@
 import React from "react";
 import "../styles/Heatmap.css";
 
-// history: { 'YYYY-MM-DD': true, ... }
-// days: number of days to show (e.g., 7, 30)
+
 export default function Heatmap({ history = {}, days = 30, squareSize = 14 }) {
   const today = new Date();
   const daysArr = Array.from({ length: days }).map((_, i) => {

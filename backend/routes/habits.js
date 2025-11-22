@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Habit = require('../models/Habit');
 
-// GET /api/habits
 router.get('/', async (req, res) => {
   try {
     const habits = await Habit.find({ user: req.user._id }).sort({ createdAt: -1 });
@@ -13,7 +12,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// POST /api/habits  { name }
 router.post('/', async (req, res) => {
   try {
     const { name } = req.body;
@@ -28,7 +26,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// DELETE /api/habits/:id
 router.delete('/:id', async (req, res) => {
   try {
     const h = await Habit.findOneAndDelete({ _id: req.params.id, user: req.user._id });
@@ -40,8 +37,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-// PATCH /api/habits/:id
-// body: { action: 'toggle_day', date: 'YYYY-MM-DD' } OR { action: 'update', name: 'new name' }
+
 router.patch('/:id', async (req, res) => {
   try {
     const { action } = req.body;
@@ -49,7 +45,7 @@ router.patch('/:id', async (req, res) => {
     if (!habit) return res.status(404).json({ message: 'Not found' });
 
     if (action === 'toggle_day') {
-      const { date } = req.body; // e.g., '2025-11-21'
+      const { date } = req.body; 
       if (!date) return res.status(400).json({ message: 'date required' });
 
       const cur = habit.history.get(date);
@@ -61,7 +57,6 @@ router.patch('/:id', async (req, res) => {
     }
 
     if (action === 'set_history') {
-      // body: { history: { '2025-11-01': true, ... } }
       const { history } = req.body;
       if (!history || typeof history !== 'object') return res.status(400).json({ message: 'history required' });
       habit.history = history;

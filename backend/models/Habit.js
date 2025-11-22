@@ -4,7 +4,6 @@ const HabitSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   name: { type: String, required: true },
   history: {
-    // store as map of date string -> boolean
     type: Map,
     of: Boolean,
     default: {}

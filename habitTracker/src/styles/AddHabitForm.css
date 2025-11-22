@@ -29,7 +29,6 @@
   gap: 8px;
 }
 
-/* MOBILE */
 @media (max-width: 500px) {
   .add-form {
     flex-direction: column;

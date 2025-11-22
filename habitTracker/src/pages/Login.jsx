@@ -50,7 +50,6 @@ export default function Login() {
           </button>
         </form>
 
-        {/* New back to home button */}
         <div className="login-links">
           <Link to="/" className="back-home-btn">
             ← Back to Home

@@ -79,7 +79,6 @@ export default function Register() {
           Already have an account? <Link to="/login">Login</Link>
         </p>
 
-        {/* Back to Home Button */}
         <div className="register-links">
           <Link to="/" className="back-home-btn">
             ← Back to Home

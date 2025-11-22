@@ -4,7 +4,6 @@
   --soft-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
-/* FULL-PAGE CENTERING */
 body, html {
   height: 100%;
 }
@@ -18,7 +17,6 @@ body, html {
   background: var(--bg);
 }
 
-/* MAIN LOGIN CARD */
 .login-container {
   width: 100%;
   max-width: 420px;
@@ -31,7 +29,6 @@ body, html {
   text-align: center;
 }
 
-/* TITLE */
 .login-container h2 {
   margin-top: 0;
   margin-bottom: 10px;
@@ -41,7 +38,6 @@ body, html {
   -webkit-text-fill-color: transparent;
 }
 
-/* FORM */
 .login-form {
   display: flex;
   flex-direction: column;
@@ -64,7 +60,6 @@ body, html {
   background: #fff;
 }
 
-/* BUTTON */
 .login-submit-btn {
   background: var(--gradient);
   color: white;
@@ -83,27 +78,23 @@ body, html {
   box-shadow: 0 10px 24px rgba(0,0,0,0.12);
 }
 
-/* ERROR */
 .error {
   color: #ef4444;
   font-size: 0.9rem;
   margin-top: -6px;
 }
 
-/* DEMO INFO */
 .demo-info {
   margin-top: 24px;
   font-size: 0.9rem;
   color: #475569;
 }
 
-/* ANIMATION */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* MOBILE */
 @media (max-width: 500px) {
   .login-container {
     padding: 24px 20px;

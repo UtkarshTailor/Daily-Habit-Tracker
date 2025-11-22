@@ -6,7 +6,6 @@ const router = express.Router();
 const User = require('../models/User');
 const { authMiddleware } = require('../middleware/auth');
 
-// POST /api/auth/register
 router.post('/register', async (req, res) => {
   try {
     const { name = 'User', email, password } = req.body;
@@ -30,7 +29,6 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// POST /api/auth/login
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -51,7 +49,6 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// GET /api/auth/me
 router.get('/me', authMiddleware, async (req, res) => {
   const user = req.user;
   res.json({ user: { id: user._id, name: user.name, email: user.email } });

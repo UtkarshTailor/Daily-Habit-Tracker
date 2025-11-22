@@ -8,25 +8,20 @@ import { useAuth } from "../context/AuthContext";
 
 const STORAGE_KEY = "habits_v1";
 
-// ISO YYYY-MM-DD
 const iso = (d) => d.toISOString().slice(0, 10);
 const todayKey = () => iso(new Date());
 
-/* -------------------------------------------------------
-   AGGREGATE HEATMAP (Moved outside to avoid render error)
---------------------------------------------------------*/
+
 function AggregateHeatmap({ habits = [], days = 30 }) {
   const agg = {};
   const today = new Date();
 
-  // initialize days to false
   for (let i = 0; i < days; i++) {
     const d = new Date();
     d.setDate(today.getDate() - i);
     agg[iso(d)] = false;
   }
 
-  // mark true if ANY habit done
   habits.forEach((h) => {
     Object.entries(h.history || {}).forEach(([date, value]) => {
       if (date in agg) agg[date] = agg[date] || value;
@@ -36,9 +31,7 @@ function AggregateHeatmap({ habits = [], days = 30 }) {
   return <Heatmap history={agg} days={days} squareSize={16} />;
 }
 
-/* -------------------------------------------------------
-   MAIN DASHBOARD COMPONENT
---------------------------------------------------------*/
+
 export default function Dashboard() {
   const { token } = useAuth();
 
@@ -47,9 +40,7 @@ export default function Dashboard() {
   const [sortBy, setSortBy] = useState("name");
   const [viewDays, setViewDays] = useState(30);
 
-  /* ----------------------------------------------
-     Sync habits from API
-  ---------------------------------------------- */
+
   useEffect(() => {
     void (async () => {
       const res = await fetch(
@@ -68,9 +59,6 @@ export default function Dashboard() {
     })();
   }, [token]);
 
-  /* ----------------------------------------------
-     CRUD operations
-  ---------------------------------------------- */
 
   const addHabit = async (name) => {
     const res = await fetch(
@@ -140,9 +128,7 @@ export default function Dashboard() {
     }
   };
 
-  /* ----------------------------------------------
-     Sorting Logic
-  ---------------------------------------------- */
+
   const analyzeForSort = (habit) => {
     const today = new Date();
     const history = habit.history || {};
@@ -155,7 +141,6 @@ export default function Dashboard() {
     }
     dates.reverse();
 
-    // longest streak
     let longest = 0;
     let run = 0;
     for (const d of dates) {
@@ -165,7 +150,6 @@ export default function Dashboard() {
       } else run = 0;
     }
 
-    // current streak
     let current = 0;
     for (let i = dates.length - 1; i >= 0; i--) {
       if (history[dates[i]]) current++;
@@ -193,16 +177,11 @@ export default function Dashboard() {
     return arr;
   }, [habits, sortBy]);
 
-  /* ----------------------------------------------
-     RENDER UI
-  ---------------------------------------------- */
-
   return (
     <>
       <Navbar />
 
       <main className="container">
-        {/* LEFT COLUMN */}
         <section className="left-col">
           <div className="card">
             <div className="card-header">
@@ -244,7 +223,6 @@ export default function Dashboard() {
           </div>
         </section>
 
-        {/* RIGHT COLUMN */}
         <aside className="right-col">
           <div className="card">
             <div className="card-header">
@@ -268,7 +246,6 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* FIXED: Now declared OUTSIDE Dashboard */}
             <AggregateHeatmap habits={habits} days={viewDays} />
           </div>
         </aside>

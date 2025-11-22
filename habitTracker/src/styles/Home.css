@@ -4,7 +4,6 @@
   --soft-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
-/* FULL PAGE */
 .home-page {
   min-height: 100vh;
   display: flex;
@@ -14,7 +13,6 @@
   background: var(--bg);
 }
 
-/* CENTERED CONTENT */
 .home-content {
   max-width: 650px;
   text-align: center;
@@ -26,7 +24,6 @@
   animation: fadeIn 0.6s ease;
 }
 
-/* HEADER */
 .home-title {
   font-size: 2.3rem;
   margin: 0;
@@ -36,7 +33,6 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* SUBTEXT */
 .home-subtext {
   color: #475569;
   margin: 14px 0 28px;
@@ -44,7 +40,6 @@
   line-height: 1.6;
 }
 
-/* BUTTON */
 .home-btn {
   background: var(--gradient);
   color: white;
@@ -63,13 +58,11 @@
   box-shadow: 0 10px 24px rgba(0,0,0,0.12);
 }
 
-/* FADE ANIMATION */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* MOBILE */
 @media (max-width: 600px) {
   .home-content {
     padding: 28px 18px;
@@ -83,7 +76,6 @@
     font-size: 1rem;
   }
 }
-/* Button group layout */
 .home-btn-group {
   display: flex;
   justify-content: center;
@@ -91,7 +83,6 @@
   margin-top: 28px;
 }
 
-/* Main button stays same */
 .home-btn {
   background: var(--gradient);
   color: white;
@@ -105,13 +96,11 @@
   transition: 0.25s ease;
 }
 
-/* Hover effect */
 .home-btn:hover {
   transform: translateY(-3px);
   box-shadow: var(--soft-shadow-hover);
 }
 
-/* Secondary button (Register) */
 .secondary-btn {
   background: white;
   color: #3b82f6;
@@ -123,7 +112,6 @@
   transform: translateY(-3px);
 }
 
-/* Mobile layout */
 @media (max-width: 500px) {
   .home-btn-group {
     flex-direction: column;

@@ -4,7 +4,6 @@
   --soft-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
-/* FULL PAGE */
 .register-page {
   min-height: 100vh;
   display: flex;
@@ -14,7 +13,6 @@
   background: #f4f7fb;
 }
 
-/* CARD */
 .register-container {
   width: 100%;
   max-width: 420px;
@@ -27,7 +25,6 @@
   text-align: center;
 }
 
-/* TITLE */
 .register-container h2 {
   margin-top: 0;
   margin-bottom: 6px;
@@ -37,7 +34,6 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* FORM */
 .register-form {
   display: flex;
   flex-direction: column;
@@ -60,7 +56,6 @@
   background: #fff;
 }
 
-/* BUTTON */
 .register-submit-btn {
   background: var(--gradient);
   color: white;
@@ -79,14 +74,12 @@
   box-shadow: 0 12px 26px rgba(0,0,0,0.1);
 }
 
-/* ERROR MESSAGE */
 .error {
   color: #ef4444;
   font-size: 0.9rem;
   margin-top: -6px;
 }
 
-/* LINK BELOW */
 .register-info {
   margin-top: 20px;
   font-size: 0.9rem;
@@ -103,13 +96,11 @@
   text-decoration: underline;
 }
 
-/* ANIMATION */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* MOBILE */
 @media (max-width: 500px) {
   .register-container {
     padding: 24px;

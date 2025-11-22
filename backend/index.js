@@ -16,14 +16,11 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// routes
 app.use('/api/auth', authRoutes);
-app.use('/api/habits', authMiddleware, habitRoutes); // protected
+app.use('/api/habits', authMiddleware, habitRoutes); 
 
-// health
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 
-// connect to mongo and start
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('MongoDB connected');

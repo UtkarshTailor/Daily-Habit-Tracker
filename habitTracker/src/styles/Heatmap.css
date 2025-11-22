@@ -22,7 +22,6 @@
   background: #f3f4f6;
 }
 
-/* MOBILE GRID FIX */
 @media (max-width: 500px) {
   .heatmap {
     gap: 4px;

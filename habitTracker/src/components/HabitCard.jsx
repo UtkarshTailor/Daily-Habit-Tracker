@@ -2,10 +2,8 @@ import React, { useMemo } from "react";
 import Heatmap from "./Heatmap";
 import "../styles/HabitCard.css";
 
-// Helpers
 const iso = (d) => d.toISOString().slice(0, 10);
 
-// Calculate streaks & progress
 function analyzeHistory(history = {}, windowDays = 30) {
   const today = new Date();
   const dates = [];
@@ -14,14 +12,11 @@ function analyzeHistory(history = {}, windowDays = 30) {
     d.setDate(today.getDate() - i);
     dates.push(iso(d));
   }
-  // reverse -> oldest -> newest
   dates.reverse();
 
-  // progress % over windowDays
   const doneCount = dates.reduce((acc, dt) => acc + (history[dt] ? 1 : 0), 0);
   const progress = Math.round((doneCount / windowDays) * 100);
 
-  // current streak (consecutive from today backwards)
   let current = 0;
   for (let i = 0; i < dates.length; i++) {
     const idx = dates.length - 1 - i;
@@ -30,7 +25,6 @@ function analyzeHistory(history = {}, windowDays = 30) {
     else break;
   }
 
-  // longest streak within window
   let longest = 0;
   let running = 0;
   for (let i = 0; i < dates.length; i++) {
@@ -78,7 +72,6 @@ export default function HabitCard({ habit, onToggleToday, onDelete }) {
 
       <div className="habit-heatmap">
         <div className="mini-heat">
-          {/* small clickable grid for last 7 days */}
           <div className="mini-grid">
             {windowDates.slice(-7).map((d) => (
               <button
